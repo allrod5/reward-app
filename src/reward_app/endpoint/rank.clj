@@ -59,14 +59,14 @@
 (defn rank
     "Ranks invited people based on their score"
     [record]
-    (defn normalize
-        [])
-    (let sorted (reduce #(conj % (select-keys %2 [:id :score])) [] record))
-        )
+    (let [list (sort-by (juxt :score :id) (reduce #(conj % (select-keys %2 [:id :score])) [] record))
+          unproper (take-while #(= (:score %) -1) list)
+          proper (drop-while #(= (:score %) -1) list)]
+        (concat (reverse proper) (reduce #(conj % (assoc (select-keys %2 [:id]) :score 0)) [] unproper))))
 
 (defn rank-endpoint [config]
     (let [input "resources/public/input.txt"
           record [{:id "1" :score 0 :children #{}}]]
         (routes
             (GET "/" [] (io/resource "public/index.html"))
-            (GET "/rank" [] (response (trampoline process (parse (slurp input)) record foo))))))
+            (GET "/rank" [] (response (rank (trampoline process (parse (slurp input)) record foo)))))))
