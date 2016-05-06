@@ -9,21 +9,7 @@
     (map   #(clojure.string/split % #" ")
             (clojure.string/split string #"\n")))
 
-(defn updateScoresFunction [m id k]
-    (defn parent
-        [id m]
-        (first (first (filter #(contains? (second (second %)) id) m))))
-    (defn incScore
-        [[score set] key id k m]
-        (if (contains? set id)
-            [(+ score (reduce * 1 (take k (repeat 1/2)))) set]
-            [score set]))
-    (let [updated (into {} (for [[key value] m] [key (incScore value key id k m)]))]
-        (if (= id "1")
-            updated
-            (recur updated (parent id updated) (inc k)))))
-
-(defn foo
+(defn updateScoresFunction
     "Recursively updates scores"
     [record id k]
     (if (= id "1")
@@ -59,14 +45,14 @@
 (defn rank
     "Ranks invited people based on their score"
     [record]
-    (let [list (sort-by (juxt :score :id) (reduce #(conj % (select-keys %2 [:id :score])) [] record))
+    (let [list (sort-by :score (reduce #(conj % (select-keys %2 [:id :score])) [] record))
           unproper (take-while #(= (:score %) -1) list)
           proper (drop-while #(= (:score %) -1) list)]
-        (concat (reverse proper) (reduce #(conj % (assoc (select-keys %2 [:id]) :score 0)) [] unproper))))
+        (concat (reverse proper) (reduce #(conj % (assoc %2 :score 0)) [] unproper))))
 
 (defn rank-endpoint [config]
     (let [input "resources/public/input.txt"
           record [{:id "1" :score 0 :children #{}}]]
         (routes
             (GET "/" [] (io/resource "public/index.html"))
-            (GET "/rank" [] (response (rank (trampoline process (parse (slurp input)) record foo)))))))
+            (GET "/rank" [] (response (rank (trampoline process (parse (slurp input)) record updateScoresFunction)))))))
