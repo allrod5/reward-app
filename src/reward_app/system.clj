@@ -6,8 +6,7 @@
             [meta-merge.core :refer [meta-merge]]
             [ring.component.jetty :refer [jetty-server]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
-            [reward-app.endpoint.rank :refer [rank-endpoint]]
-            [reward-app.endpoint.invite :refer [invite-endpoint]]
+            [reward-app.endpoint.endpoint :refer [endpoint]]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]))
 
 (def base-config
@@ -23,10 +22,8 @@
     (-> (component/system-map
          :app  (handler-component (:app config))
          :http (jetty-server (:http config))
-         :rank (endpoint-component rank-endpoint)
-         :invite (endpoint-component invite-endpoint))
+         :endpoint (endpoint-component endpoint))
         (component/system-using
          {:http [:app]
-          :app  [:rank :invite]
-          :rank []
-          :invite []}))))
+          :app  [:endpoint]
+          :endpoint []}))))
