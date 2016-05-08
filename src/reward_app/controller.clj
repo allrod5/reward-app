@@ -46,13 +46,19 @@
     (let [record [{:id "1" :score 0 :children #{}}]]
         (trampoline process (parse (slurp file)) record updateScoresFunction)))
 
-
-
 (defn rank
     "Ranks invited people based on their score"
     [record]
     (let [list (sort-by :score (reduce #(conj % (select-keys %2 [:id :score])) [] record))
           unproper (take-while #(= (:score %) -1) list)
           proper (drop-while #(= (:score %) -1) list)]
-        ;;(pprint record)
         (concat (reverse proper) (reduce #(conj % (assoc %2 :score 0)) [] unproper))))
+
+(defn invite
+    "Processes an invite"
+    [record inviter invited]
+    (let [new (trampoline process [[inviter invited]] record updateScoresFunction)]
+        (pprint inviter)
+        (pprint invited)
+        (pprint new)
+        new))
