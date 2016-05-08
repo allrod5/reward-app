@@ -57,8 +57,4 @@
 (defn invite
     "Processes an invite"
     [record inviter invited]
-    (let [new (trampoline process [[inviter invited]] record updateScoresFunction)]
-        (pprint inviter)
-        (pprint invited)
-        (pprint new)
-        new))
+    (trampoline process [[inviter invited]] record updateScoresFunction))
