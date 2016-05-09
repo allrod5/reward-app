@@ -26,7 +26,7 @@ In there there are two endpoints: *rank* and *invite*.
 
 **rank endpoint**: This endpoint captures a GET request to  <http://localhost:3000/rank> and returns a JSON array of costumers and their scores in decrescent order of their scores. Note that the order of costumers with the same score is arbitrary.
 
-**invite endpoint**: This endpoint captures a POST request to <http://localhost:3000/invite/:inviter/:invited>, where `:inviter` and `invited` are the ids of, respectively, the inviting costumer and the invited one; and returns a message "Invite received!" if the invite was successfully processed.
+**invite endpoint**: This endpoint captures a POST request to <http://localhost:3000/invite/:inviter/:invited>, where `:inviter` and `:invited` are the ids of, respectively, the inviting costumer and the invited one; and returns a message "Invite received!" if the invite was successfully processed.
 
 
 ## How it works
