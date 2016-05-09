@@ -26,7 +26,7 @@ In there there are two endpoints: *rank* and *invite*.
 
 **rank endpoint**: This endpoint captures a GET request to  <http://localhost:3000/rank> and returns a JSON array of costumers and their scores in decrescent order of their scores. Note that the order of costumers with the same score is arbitrary.
 
-**invite endpoint**: This endpoint captures a POST request to <http://localhost:3000/invite/:inviter/:invited>, where `:inviter` and `invited` are the ids of, respectively, the inviting costumer and the invited one; and returns a message "Invite received!" if the invite was successfully processed.
+**invite endpoint**: This endpoint captures a POST request to <http://localhost:3000/invite/:inviter/:invited>, where `:inviter` and `:invited` are the ids of, respectively, the inviting costumer and the invited one; and returns a message "Invite received!" if the invite was successfully processed.
 
 
 ## How it works
@@ -35,9 +35,9 @@ In there there are two endpoints: *rank* and *invite*.
 
 The first phase of building the app was to grasp the requested system and to outline how it should work. For that some diagrams were drafted:
 
-[Diagram 1](diagram-1.jpg)
-[Diagram 2](diagram-2.jpg)
-[Diagram 3](diagram-3.jpg)
+![Diagram 1](diagram-1.jpg)
+![Diagram 2](diagram-2.jpg)
+![Diagram 3](diagram-3.jpg)
 
 ### Structure
 
@@ -65,4 +65,4 @@ PS.: Specifics of the code are explained by the comments in the code itself.
 
 ## Notes
 
-It is curious that by the problem definition nothing impedes a costumer of inviting itself to render himself or his parent as a confirmed costumer. 
+It is curious that by the problem definition nothing impedes a costumer of inviting himself or his parent to render himself as a confirmed costumer. 
