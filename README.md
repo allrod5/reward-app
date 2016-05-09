@@ -65,4 +65,4 @@ PS.: Specifics of the code are explained by the comments in the code itself.
 
 ## Notes
 
-It is curious that by the problem definition nothing impedes a costumer of inviting itself to render himself or his parent as a confirmed costumer. 
+It is curious that by the problem definition nothing impedes a costumer of inviting himself or his parent to render himself as a confirmed costumer. 
