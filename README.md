@@ -35,9 +35,9 @@ In there there are two endpoints: *rank* and *invite*.
 
 The first phase of building the app was to grasp the requested system and to outline how it should work. For that some diagrams were drafted:
 
-[Diagram 1](diagram-1.jpg)
-[Diagram 2](diagram-2.jpg)
-[Diagram 3](diagram-3.jpg)
+![Diagram 1](diagram-1.jpg)
+![Diagram 2](diagram-2.jpg)
+![Diagram 3](diagram-3.jpg)
 
 ### Structure
 
