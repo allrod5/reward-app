@@ -51,13 +51,13 @@ As it was specified in the diagrams, in order to rank costumers, each invitation
  3. Confirming invitations; and
  4. Propagate score rewards over costumers related to each new invitation.
 
-After that ranking costumers is just to sort them by their score.
+After that, ranking the costumers is just a matter of sorting them by their score.
 
 To carry out steps 1 and 2 it is necessary to keep a list of costumers and for steps 3 and 4 it is necessary to keep a record of invitations made, the score of each costumer and their status as confirmed or not, all of these suggests the use of a tree struture to keep record of all these data and relations. In the app these info are stored in a vector of maps `record` which implies an implicit tree structure as each map contains the keys `:id`, `:score` and `children` and their values are, respectively, a string, a real number and a set of strings in which each string denotes the id of a costumer invited by this costumer.
 
 The app also allows adding new invitations through the *invite* endpoint. It is worth to notice that this implies in rendering some parts of the app non-functional as the new invitation is supposed to be accounted on subsequent ranking requests in the *rank* endpoint. This is because the `record` vector used by the *rank* endpoint is not immutable anymore and there is no way to transform this non-functional scenario in a functional one without great effort.
 
-To get arround the issue with referential transparency yielded by the mutable nature of `record` one can use some of the ready-to-consume solutions provided by Clojure: Refs and Transactions; Agents; or Atoms. For its simplicity and fitness for our needs in this app var holding `record` within an atom is created and it is derrefenced by the *rank* endpoint when needed.
+To get arround the issue with referential transparency yielded by the mutable nature of `record` one can use some of the ready-to-consume solutions provided by Clojure: Refs and Transactions; Agents; or Atoms. For its simplicity and fitness for our needs in this app a var holding `record` within an atom is created and then it is derrefenced by the *rank* endpoint when needed.
 
 OBS.: In this app `record` information is not persisted to a database, but it was the case, it would be possible to avoid having `record` as a variable as it would be possible to always construct the `record` vector from the database and it would be always updated (notice that this doesn't solve the referential transparency issue as now we are persisting to a database which is a side-effect and renders the portion of the code that deals with the database non-functional too), but it wouldn't be as efficient as keeping `record` on primary memory and not to need to access secondary memory at each HTTP request, so even if a database to persist `record` data were to be introduced in this app, the *modus operandis* of the app should remain identical.
 
