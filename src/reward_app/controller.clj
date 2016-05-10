@@ -24,7 +24,7 @@
     "Processes invitations made"
     [[[A B] & tail] record updateScores]
     (defn proceed
-        "Proceeds with the processing of the invitations if there is any left"
+        "Proceeds with the processing of the invitations if there are any left"
         [tail record updateScores]
         (if tail
             (process tail record updateScores)
